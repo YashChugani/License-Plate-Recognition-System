@@ -1,0 +1,32 @@
+# Virtual Environments
+venv/
+env/
+alpr_env
+.env
+
+# Python Cache
+__pycache__/
+*.pyc
+src/__pycache__/
+
+# Datasets & Images
+raw_kaggle_data/
+input_images/
+input_images_old/
+output_images/
+lpr_sample_images.zip
+
+# Ignore user uploads in the web app, but keep the folder
+web_app/static/uploads/*
+!web_app/static/uploads/.keep
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Deprecated files
+complete_pipeline.ipynb
+evaluation_metrics_v2.txt
+evaluation_results_v1.csv
+evaluation_results_v2.csv
+rename_dataset.py

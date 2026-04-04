@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPR System | Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">ALPR<span>Engine</span></a>
+        <div class="nav-links">
+            <a href="/">Overview</a>
+            <a href="/app" class="active">Launch App</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="upload-card">
+            <h2>Upload Vehicle Image</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">Select a JPG or PNG image to run the extraction pipeline.</p>
+            
+            <form id="upload-form" method="POST" enctype="multipart/form-data">
+                <input type="file" id="file-upload" name="file" accept="image/*" required style="margin-bottom: 1rem;">
+                
+                <div id="preview-container" style="display: none; margin: 1rem 0;">
+                    <img id="image-preview" src="" alt="Preview" style="max-height: 200px; border-radius: 8px;">
+                </div>
+                
+                <br>
+                <button type="submit" class="btn-primary">Scan License Plate</button>
+            </form>
+
+            <div id="loader">
+                <div class="spinner"></div>
+                <p style="color: var(--text-light); font-weight: 600;">Running Pipeline... Please wait.</p>
+            </div>
+
+            {% if error %}
+                <p style="color: var(--danger); font-weight: bold; margin-top: 1rem;">{{ error }}</p>
+            {% endif %}
+        </div>
+
+        {% if original_image %}
+        <div id="results-section" class="results-grid">
+            
+            <div class="result-card" style="text-align: center;">
+                <h3 style="color: var(--text-light); margin-top: 0;">Extraction Result</h3>
+                
+                {% if possible_plates|length > 1 %}
+                    <p style="color: var(--warning); font-weight: bold;">Ambiguous State Code Detected.</p>
+                    <p>Highest Probability Matches:</p>
+                    <div style="text-align: left; background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid #cbd5e1;">
+                        <ul style="list-style-type: none; padding: 0; margin: 0;">
+                        {% for plate in possible_plates %}
+                            <li style="font-size: 1.2rem; font-family: monospace; font-weight: bold; margin-bottom: 5px; color: var(--primary-color);">↳ {{ plate }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="plate-display">{{ possible_plates[0] }}</div>
+                {% endif %}
+
+                <hr style="border: none; border-top: 1px solid #cbd5e1; margin: 1.5rem 0;">
+                
+                <div style="display: flex; justify-content: space-around;">
+                    <div>
+                        <p style="margin: 0; color: var(--text-light); font-size: 0.9rem;">Confidence</p>
+                        <p style="margin: 0; font-weight: bold; font-size: 1.2rem;">{{ confidence }}%</p>
+                    </div>
+                    <div>
+                        <p style="margin: 0; color: var(--text-light); font-size: 0.9rem;">Valid Format</p>
+                        <p style="margin: 0; font-weight: bold; font-size: 1.2rem;" class="{% if is_valid %}text-success{% else %}text-danger{% endif %}">
+                            {{ is_valid }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-card">
+                {% if cropped_image %}
+                <div>
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--text-light);">Isolated Region of Interest</h4>
+                    <img src="{{ url_for('static', filename='uploads/' + cropped_image) }}" alt="Cropped Plate" style="border: 2px solid var(--accent-color);">
+                </div>
+                {% endif %}
+                
+                <div style="margin-top: 1.5rem;">
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--text-light);">Original Input</h4>
+                    <img src="{{ url_for('static', filename='uploads/' + original_image) }}" alt="Original Image">
+                </div>
+            </div>
+
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

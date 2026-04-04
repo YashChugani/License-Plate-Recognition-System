@@ -1,0 +1,8 @@
+=============================================
+      FINAL SYSTEM PERFORMANCE METRICS       
+=============================================
+Total Images Processed : 1696
+Exact Plate Matches    : 592
+System Exact Accuracy  : 34.91%
+System Char. Accuracy  : 63.77%
+=============================================

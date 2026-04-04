@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPR System | Overview</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">ALPR<span>Engine</span></a>
+        <div class="nav-links">
+            <a href="/" class="active">Overview</a>
+            <a href="/app">Launch App</a>
+        </div>
+    </nav>
+
+    <div class="container hero">
+        <h1>Indian Vehicle License Plate Recognition</h1>
+        <p style="font-size: 1.2rem; color: var(--text-light); max-width: 600px; margin: 0 auto 2rem auto;">
+            A classical Digital Image Processing pipeline utilizing Auto-Canny edge detection, geometric filtering, and Heuristic OCR validation to extract license plates in uncontrolled environments.
+        </p>
+        <a href="/app" class="btn-primary">Test the System Live</a>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Adaptive Localization</h3>
+                <p>Uses dynamic Auto-Canny thresholding to adjust to harsh lighting, shadows, and varying contrasts natively without requiring deep learning models.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Heuristic Fallbacks</h3>
+                <p>Applies a Levenshtein-distance based state-code dictionary and whole-image OCR fallbacks to rescue edge cases and geometric failures.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Strict Regex Validation</h3>
+                <p>Automatically cleans and validates text outputs against standard Indian (e.g., MH12AB1234) and Bharat (BH) series formatting rules.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
