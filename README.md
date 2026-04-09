@@ -58,7 +58,8 @@ LPR-System/
 
 ---
 
-## ⚙️ The Pipeline Architecture
+## ⚙️ The Pipeline Architecture  
+![LPR System Architecture](architecture_diagram/architecture_diagram.png)
 1. **Preprocessing:** Grayscale conversion, Bilateral Filtering (noise reduction while preserving edges).
 2. **Detection:** Dynamic Auto-Canny edge detection and geometric contour validation (aspect ratio, area constraints).
 3. **Extraction & Enhancement:** Mathematical deskewing, ROI cropping, and Otsu's Thresholding.
