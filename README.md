@@ -51,6 +51,8 @@ LPR-System/
 │       ├── home.html           # Landing page
 │       └── app.html            # ALPR scanner interface
 │
+├── static/                    # Documentation diagrams
+│
 ├── main_pipeline.py            # CLI tool for single-image testing
 ├── prepare_dataset.py          # Script to parse Kaggle XMLs to ground_truth.csv
 └── run_evaluation.py           # Bulk evaluator for dataset metrics
@@ -59,7 +61,7 @@ LPR-System/
 ---
 
 ## ⚙️ The Pipeline Architecture  
-![LPR System Architecture](architecture_diagram/architecture_diagram.png)
+![LPR Pipeline Architecture](static/pipeline_diagram.png)
 1. **Preprocessing:** Grayscale conversion, Bilateral Filtering (noise reduction while preserving edges).
 2. **Detection:** Dynamic Auto-Canny edge detection and geometric contour validation (aspect ratio, area constraints).
 3. **Extraction & Enhancement:** Mathematical deskewing, ROI cropping, and Otsu's Thresholding.
@@ -77,6 +79,7 @@ Evaluated on a challenging, uncleaned Kaggle dataset of **1,696 Indian vehicle i
 * **System Exact Match Accuracy:** 34.91%
 * **Overall Character Accuracy:** 63.77%
 * **Isolated ROI Character Accuracy:** 83.39% *(Accuracy when the plate was successfully localized by the classical CV pipeline)*
+![LPR System Performance Graph](static/Figure2_Fallback_Impact.png)
 
 *Note: The primary bottleneck identified in this classical CV approach is the localization stage under extreme lighting variances, which was partially mitigated by the heuristic fallback mechanism.*
 
